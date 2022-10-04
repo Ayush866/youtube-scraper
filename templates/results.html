@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Yotube Scraper</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+
+      <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+
+<body>
+
+  <div class="table-users">
+   <div class="header">Top Viedos of {{name}}</div>
+
+   <table cellspacing="0">
+      <tr>
+          <th>Thumbnail</th>
+          <th>Title</th>
+          <th>Upload Date</th>
+          <th>Views</th>
+          <th>Viedo Link</th>
+      </tr>
+         {% for review in reviews %}
+      <tr>
+          <td><img src="{{review['image_link']}}",alt="thumbnail"></td>
+          <td>{{review['titles']}}</td>
+          <td>{{review['upload_date']}}</td>
+         <td>{{review['views']}}</td>
+         <td>{{review['link']}}</td>
+       {% endfor %}
+   </table>
+</div>
+
+
+
+</body>
+
+</html>
