@@ -13,8 +13,6 @@ Jinja2==2.11.2
 lxml==4.9.1
 MarkupSafe==1.1.1
 mysql-connector-python==8.0.30
-numpy==1.19.5
-pandas==1.1.5
 protobuf==3.19.5
 pymongo==4.1.1
 python-dateutil==2.8.2
@@ -24,5 +22,4 @@ selenium==3.141.0
 six==1.15.0
 soupsieve==2.0.1
 urllib3==1.25.10
-Werkzeug==1.0.1
-wincertstore==0.2
+
