@@ -1,1 +1,1 @@
-web: gunicorn webscraper3:app --log-file -
+web: gunicorn app:webscraper3 
