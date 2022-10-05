@@ -3,7 +3,7 @@ import time
 from flask import Flask, render_template, request,jsonify
 from flask_cors import CORS,cross_origin
 from selenium.webdriver.chrome.options import Options
-
+import os
 
 app = Flask(__name__)
 
@@ -19,6 +19,8 @@ def index():
             youtuber_name = request.form['content'].replace(" ","")
             baseurl = "https://www.youtube.com/results?search_query={}".format(youtuber_name)
             chrome_options = Options()
+            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM")
+            chrome_options.add_argument("--headless")
             chrome_options.add_argument("--headless")
             driver = webdriver.Chrome(chrome_options=chrome_options)
             driver.implicitly_wait(3)
