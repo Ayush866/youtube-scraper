@@ -22,6 +22,7 @@ def index():
             chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM")
             chrome_options.add_argument("--headless")
             chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--no-sandbox")
             driver = webdriver.Chrome(chrome_options=chrome_options)
             driver.implicitly_wait(3)
             driver.get(baseurl)
