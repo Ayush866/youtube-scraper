@@ -3,7 +3,7 @@ import time
 from flask import Flask, render_template, request,jsonify
 from flask_cors import CORS,cross_origin
 from selenium.webdriver.chrome.options import Options
-import os
+
 
 app = Flask(__name__)
 
@@ -19,9 +19,7 @@ def index():
             youtuber_name = request.form['content'].replace(" ","")
             baseurl = "https://www.youtube.com/results?search_query={}".format(youtuber_name)
             chrome_options = Options()
-            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM")
             chrome_options.add_argument("--headless")
-            chrome_options.add_argument("--disable-dev-shm-usage")
             driver = webdriver.Chrome(chrome_options=chrome_options)
             driver.implicitly_wait(3)
             driver.get(baseurl)
@@ -68,7 +66,7 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=8001, debug=True)
+    app.run(debug=True)
 
 
 #style-scope ytd-grid-video-renderer
