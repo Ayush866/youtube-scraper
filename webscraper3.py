@@ -32,6 +32,10 @@ def index():
             time.sleep(5)
             channel_name = driver.find_element_by_xpath('.//*[@id="channel-name"]').text
             viedos = driver.find_elements_by_class_name("style-scope ytd-grid-video-renderer")
+            filename = channel_name + ".csv"
+            fw = open(filename, "w")
+            headers = "Thumbnail,Title,Upload Date,Views,Viedo Link \n"
+            fw.write(headers)
             viedo_list = []
             thumbnail = []
             i=1
