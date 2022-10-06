@@ -18,12 +18,11 @@ def index():
     if request.method == 'POST':
             youtuber_name = request.form['content'].replace(" ","")
             baseurl = "https://www.youtube.com/results?search_query={}".format(youtuber_name)
-            chrome_options = Options()
-            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM")
-            chrome_options.add_argument("--headless")
-            chrome_options.add_argument("--headless")
-            chrome_options.add_argument("--no-sandbox")
-            driver = webdriver.Chrome(options=chrome_options)
+            options = Options()
+            options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM")
+            options.add_argument("--headless")
+            options.add_argument("--disable-dev-shm-usage")
+            driver = webdriver.Chrome(options=options)
             driver.implicitly_wait(3)
             driver.get(baseurl)
             time.sleep(5)
@@ -69,15 +68,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
-
-
-#style-scope ytd-grid-video-renderer
-
-#//*[@id="video-title"]
-#//*[@id="metadata-line"]/span[1]
-#//*[@id="metadata-line"]/span[2]
-#.//*[@id='info-section']/a
-#//*[@id="thumbnail"]
-#//*[@id="img"]
-#//*[@id="text"]
+    app.run(debug=True)
