@@ -20,7 +20,7 @@ def index():
             baseurl = "https://www.youtube.com/results?search_query={}".format(youtuber_name)
             options = Options()
             options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM")
-            options.add_argument("--headless")
+            #options.add_argument("--headless")
             options.add_argument("--disable-dev-shm-usage")
             driver = webdriver.Chrome(options=options)
             driver.implicitly_wait(3)
