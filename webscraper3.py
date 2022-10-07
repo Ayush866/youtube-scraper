@@ -12,15 +12,16 @@ app = Flask(__name__)
 def homePage():
     return render_template("index.html")
 
-@app.route('/review',methods=['POST','GET']) # route to show the review comments in a web UI
+@app.route('/youtube1',methods=['POST','GET']) # route to show the review comments in a web UI
 @cross_origin()
 def index():
     if request.method == 'POST':
+        try:
             youtuber_name = request.form['content'].replace(" ","")
             baseurl = "https://www.youtube.com/results?search_query={}".format(youtuber_name)
             options = Options()
             options.binary_location = os.environ.get("GOOGLE_CHROME_SHIM")
-            #options.add_argument("--headless")
+            options.add_argument("--headless")
             options.add_argument("--disable-dev-shm-usage")
             driver = webdriver.Chrome(options=options)
             driver.implicitly_wait(3)
@@ -43,22 +44,42 @@ def index():
                 if i>10:
                     break
                 else:
-                    titles = viedo.find_element_by_xpath(".//*[@id='video-title']").text
-                    views = viedo.find_element_by_xpath('.//*[@id="metadata-line"]/span[1]').text
-                    uploaded = viedo.find_element_by_xpath('.//*[@id="metadata-line"]/span[2]').text
-                    viedo_link = viedo.find_element_by_xpath('.//*[@id="thumbnail"]').get_attribute("href")
-                    image = viedo.find_element_by_xpath('.//*[@id="img"]').get_attribute("src")
-                    vido_dict = {
-                        "titles": titles,
-                        "upload_date": uploaded,
-                        "views": views,
-                        "link": viedo_link,
-                        "image_link": image
-                    }
+                    try:
+                        titles = viedo.find_element_by_xpath(".//*[@id='video-title']").text
+                    except:
+                        titles="no titles"
+
+                    try:
+                        views = viedo.find_element_by_xpath('.//*[@id="metadata-line"]/span[1]').text
+
+                    except:
+                        views="no views"
+
+                    try:
+                        uploaded = viedo.find_element_by_xpath('.//*[@id="metadata-line"]/span[2]').text
+
+                    except:
+                        uploaded = "no date"
+
+                    try:
+                        viedo_link = viedo.find_element_by_xpath('.//*[@id="thumbnail"]').get_attribute("href")
+
+                    except:
+                        viedo_link="no link"
+
+                    try:
+                        image = viedo.find_element_by_xpath('.//*[@id="img"]').get_attribute("src")
+                    except Exception as e:
+                        print("Exception while creating dictionary: ", e)
+
+                    vido_dict = {"titles": titles,"upload_date": uploaded,"views": views,"link": viedo_link,"image_link": image}
                     viedo_list.append(vido_dict)
                     i+=1
 
             return render_template('results.html', reviews=viedo_list[0:(len(viedo_list)-1)],name=channel_name)
+        except Exception as e:
+            print('The Exception message is: ', e)
+            return 'something is wrong'
 
 
     else:
