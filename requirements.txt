@@ -11,7 +11,7 @@ idna
 itsdangerous
 Jinja2
 lxml
-MarkupSafe1
+MarkupSafe1==1.1.1
 mysql-connector-python
 protobuf
 pymongo
